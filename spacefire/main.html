@@ -1,0 +1,1115 @@
+<HTML>
+
+<HEAD>
+<TITLE>SPACE FIRE</TITLE>
+
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+
+var timerID = null
+var timerINT = 120                               //interval (ms)
+
+//var intervalID = null
+//var intervaltime = 150                            //interval (ms)
+var chrname = new Array(50)
+var objoff1 = new Array(7)
+var offx1 = new Array(7)
+var offx2 = new Array(7)
+var offy1 = new Array(7)
+var offy2 = new Array(7)
+var drx1 = new Array(7)
+var drx2 = new Array(7)
+var dry1 = new Array(7)
+var dry2 = new Array(7)
+var fireOK = 0
+
+var tmps = new Array(3)
+
+var score=0
+var icount=0
+var ilimit=200                                   //boss timing = 200 interval
+var fireflg=29
+var a=0
+var b=0
+var c=0
+var d=0
+var ptna=0
+var ptnb=0
+var ptnc=0
+var ptnNO=-1
+var imgNO=-1
+var tmpL=0
+var tmpA=0
+var tmpI=0
+var tmpshow=0
+
+var runP=4
+var l1=0
+var l2=0
+var l3=0
+var hrx=184
+var hry=150
+var hrdx=0
+var hrdy=0
+var drhead=1
+var drdam=0
+
+function chkfa(){
+ if (tmpI == 0){
+  tmpA=a
+  tmpL=a+ptna
+  if (firex >= l2-offx1[a]){
+   if (firex <= l2+offx2[a]){
+    if (ptna == 0){firehit(a*4+1,8);a=-1}
+    if (ptna == 10){if (firey >= offy1[a]){firehit(a*4+2,9);a=-1}}
+    if (ptna == 20){if (firey <= offy2[a]){firehit(a*4+3,10);a=-1}}
+   }
+  }
+ }
+}
+
+function chkfb(){
+ if (tmpI == 0){
+  tmpA=b
+  tmpL=b+ptnb
+  if (firex >= l1-offx1[b]){
+   if (firex <= l1+offx2[b]){
+    if (ptnb == 0){firehit(b*4+1,8);b=-1}
+    if (ptnb == 10){if (firey >= offy1[b]){firehit(b*4+2,9);b=-1}}
+    if (ptnb == 20){if (firey <= offy2[b]){firehit(b*4+3,10);b=-1}}
+   }
+  }
+ }
+}
+
+function chkfc(){
+ if (tmpI == 0){
+  tmpA=d
+  tmpL=d+ptnc
+  if (firex >= l3-offx1[d]){
+   if (firex <= l3+offx2[d]){
+    if (ptnc == 0){firehit(d*4+1,8);d=-1}
+    if (ptnc == 10){if (firey >= offy1[d]){firehit(d*4+2,9);d=-1}}
+    if (ptnc == 20){if (firey <= offy2[d]){firehit(d*4+3,10);d=-1}}
+   }
+  }
+ }
+}
+
+function firehit(imgNO,ptnNO){
+// SetIcon(ptnNO,imgNO)
+ document.layers[chrname[tmpL]].layers[0].visibility="HIDE"
+ document.layers[chrname[tmpL]].layers[1].visibility="SHOW"
+ score=score+200
+ fireflg = 29
+ tmpI=imgNO
+}
+
+function movUL(){
+hrdx=-20
+hrdy=-20
+}
+function movU(){
+hrdx=0
+hrdy=-20
+}
+function movUR(){
+hrdx=20
+hrdy=-20
+}
+function movL(){
+hrdx=-20
+hrdy=0
+}
+function movN(){
+hrdx=0
+hrdy=0
+}
+function movR(){
+hrdx=20
+hrdy=0
+}
+function movDL(){
+hrdx=-20
+hrdy=20
+}
+function movD(){
+hrdx=0
+hrdy=20
+}
+function movDR(){
+hrdx=20
+hrdy=20
+}
+
+function chka(){
+ if (hrx >= l2-16){
+  if (hrx <= l2+84){
+   if (ptna == 0){getready()}
+   if (ptna == 10){if (hry >= 150){getready()}}
+   if (ptna == 20){if (hry <= 60){getready()}}
+  }
+ }
+}
+function chkb(){
+ if (hrx >= l1-16){
+  if (hrx <= l1+84){
+   if (ptnb == 0){getready()}
+   if (ptnb == 10){if (hry >= 150){getready()}}
+   if (ptnb == 20){if (hry <= 60){getready()}}
+  }
+ }
+}
+function chkd(){
+ if (hrx >= l3-16){
+  if (hrx <= l3+84){
+   if (ptnc == 0){getready()}
+   if (ptnc == 10){if (hry >= 150){getready()}}
+   if (ptnc == 20){if (hry <= 60){getready()}}
+  }
+ }
+}
+
+
+function getready(){
+ fireOK=0
+  clearTimeout(timerID)
+  clearTimeout(timerID)
+  clearTimeout(timerID)
+  clearTimeout(timerID)
+  clearTimeout(timerID)
+  clearTimeout(timerID)
+  clearTimeout(timerID)
+  clearTimeout(timerID)
+  clearTimeout(timerID)
+  clearTimeout(timerID)
+
+// clearInterval(intervalID)
+   document.layers["harrier"].layers["runP0"].visibility="HIDE"
+   document.layers["harrier"].layers["runP1"].visibility="HIDE"
+   document.layers["harrier"].layers["runP2"].visibility="HIDE"
+   document.layers["harrier"].layers["runP3"].visibility="SHOW"
+ with (Math) {score = floor(score/2)}
+ document.layers["btn"].top="-380"
+ document.layers["btn"].visibility="SHOW"
+}
+
+
+function gameset(){
+ fireOK=0
+  clearTimeout(timerID)
+  clearTimeout(timerID)
+  clearTimeout(timerID)
+  clearTimeout(timerID)
+  clearTimeout(timerID)
+  clearTimeout(timerID)
+  clearTimeout(timerID)
+  clearTimeout(timerID)
+  clearTimeout(timerID)
+  clearTimeout(timerID)
+
+// clearInterval(intervalID)
+  if (drhead >= 6){
+   drheadx=21-drhead
+   document.layers[chrname[drheadx]].layers[2].visibility="HIDE"
+   document.layers[chrname[drheadx]].layers[5].visibility="SHOW"
+  }else{
+   document.layers[chrname[drhead]].layers[2].visibility="HIDE"
+   document.layers[chrname[drhead]].layers[5].visibility="SHOW"
+  }
+
+ drhead=drhead-1;if (drhead == -1){drhead=11}
+  if (drhead >= 6){
+   drheadx=21-drhead
+   document.layers[chrname[drheadx]].layers[3].visibility="HIDE"
+   document.layers[chrname[drheadx]].layers[5].visibility="SHOW"
+  }else{
+   document.layers[chrname[drhead]].layers[3].visibility="HIDE"
+   document.layers[chrname[drhead]].layers[5].visibility="SHOW"
+  }
+
+ drhead=drhead-1;if (drhead == -1){drhead=11}
+  if (drhead >= 6){
+   drheadx=21-drhead
+   document.layers[chrname[drheadx]].layers[3].visibility="HIDE"
+   document.layers[chrname[drheadx]].layers[5].visibility="SHOW"
+  }else{
+   document.layers[chrname[drhead]].layers[3].visibility="HIDE"
+   document.layers[chrname[drhead]].layers[5].visibility="SHOW"
+  }
+
+ drhead=drhead-1;if (drhead == -1){drhead=11}
+  if (drhead >= 6){
+   drheadx=21-drhead
+   document.layers[chrname[drheadx]].layers[3].visibility="HIDE"
+   document.layers[chrname[drheadx]].layers[5].visibility="SHOW"
+  }else{
+   document.layers[chrname[drhead]].layers[3].visibility="HIDE"
+   document.layers[chrname[drhead]].layers[5].visibility="SHOW"
+  }
+
+ drhead=drhead-1;if (drhead == -1){drhead=11}
+  if (drhead >= 6){
+   drheadx=21-drhead
+   document.layers[chrname[drheadx]].layers[4].visibility="HIDE"
+   document.layers[chrname[drheadx]].layers[5].visibility="SHOW"
+  }else{
+   document.layers[chrname[drhead]].layers[4].visibility="HIDE"
+   document.layers[chrname[drhead]].layers[5].visibility="SHOW"
+  }
+
+ score=score+2000
+
+ document.layers["btn"].top="-880"
+ document.layers["btn"].visibility="SHOW"
+}
+
+
+function cont(){
+ document.layers["btn"].visibility="HIDE"
+ document.layers["harrier"].layers["runP3"].visibility="HIDE"
+ timerID = setTimeout("interval1()",timerINT)
+//intervalID=setInterval("interval1()",intervaltime)
+ fireOK=1
+}
+
+function restart(){
+ document.layers["btn"].visibility="HIDE"
+ document.layers["btn"].top="250"
+ document.layers["btn"].visibility="SHOW"
+ icount=0
+
+ for (inia=0; inia<8; inia++){
+   document.layers[chrname[inia]].layers[5].visibility="HIDE"
+   document.layers[chrname[inia+10]].layers[5].visibility="HIDE"
+   document.layers[chrname[inia+20]].layers[2].visibility="HIDE"
+
+  document.layers[chrname[inia]].visibility="HIDE"
+  document.layers[chrname[inia+10]].visibility="HIDE"
+  document.layers[chrname[inia+20]].visibility="HIDE"
+ }
+  document.layers[chrname[0]].moveTo(194,134)
+  document.layers[chrname[1]].moveTo(190,130)
+  document.layers[chrname[2]].moveTo(186,124)
+  document.layers[chrname[3]].moveTo(180,115)
+  document.layers[chrname[4]].moveTo(170,102)
+  document.layers[chrname[5]].moveTo(156,82)
+  document.layers[chrname[6]].moveTo(132,52)
+  document.layers[chrname[7]].moveTo(99,7)
+
+  document.layers[chrname[10]].moveTo(194,134)
+  document.layers[chrname[11]].moveTo(190,130)
+  document.layers[chrname[12]].moveTo(186,124)
+  document.layers[chrname[13]].moveTo(180,115)
+  document.layers[chrname[14]].moveTo(170,102)
+  document.layers[chrname[15]].moveTo(156,82)
+  document.layers[chrname[16]].moveTo(132,52)
+  document.layers[chrname[17]].moveTo(99,7)
+
+  document.layers[chrname[20]].moveTo(194,134)
+  document.layers[chrname[21]].moveTo(190,130)
+  document.layers[chrname[22]].moveTo(186,124)
+  document.layers[chrname[23]].moveTo(180,115)
+  document.layers[chrname[24]].moveTo(170,102)
+  document.layers[chrname[25]].moveTo(156,82)
+  document.layers[chrname[26]].moveTo(132,52)
+  document.layers[chrname[27]].moveTo(99,7)
+
+}
+
+
+function fire(){
+if (fireOK != 0){
+if (fireflg >= 30){document.layers[chrname[fireflg]].visibility="HIDE"}
+fireflg=37
+firex=hrx-16
+firey=hry
+document.layers[chrname[fireflg]].moveTo(firex,firey)
+document.layers[chrname[fireflg]].visibility="SHOW"
+}
+}
+
+function onld(){
+document.layers["btn"].visibility="HIDE"
+chrname[0]="MYCHR0"
+chrname[1]="MYCHR1"
+chrname[2]="MYCHR2"
+chrname[3]="MYCHR3"
+chrname[4]="MYCHR4"
+chrname[5]="MYCHR5"
+chrname[6]="MYCHR6"
+chrname[7]="MYCHR7"
+
+chrname[10]="MYCHX0"
+chrname[11]="MYCHX1"
+chrname[12]="MYCHX2"
+chrname[13]="MYCHX3"
+chrname[14]="MYCHX4"
+chrname[15]="MYCHX5"
+chrname[16]="MYCHX6"
+chrname[17]="MYCHX7"
+
+chrname[20]="MYCHY0"
+chrname[21]="MYCHY1"
+chrname[22]="MYCHY2"
+chrname[23]="MYCHY3"
+chrname[24]="MYCHY4"
+chrname[25]="MYCHY5"
+chrname[26]="MYCHY6"
+chrname[27]="MYCHY7"
+
+chrname[30]="MYbul0"
+chrname[31]="MYbul1"
+chrname[32]="MYbul2"
+chrname[33]="MYbul3"
+chrname[34]="MYbul4"
+chrname[35]="MYbul5"
+chrname[36]="MYbul6"
+chrname[37]="MYbul7"
+
+objoff1[0]=3
+objoff1[1]=5
+objoff1[2]=7
+objoff1[3]=10
+objoff1[4]=15
+objoff1[5]=22
+objoff1[6]=34
+objoff1[7]=51
+
+offx1[0]=4
+offx1[1]=6
+offx1[2]=9
+offx1[3]=14
+offx1[4]=20
+offx1[5]=30
+offx1[6]=45
+offx1[7]=68
+
+offx2[0]=6
+offx2[1]=9
+offx2[2]=14
+offx2[3]=20
+offx2[4]=30
+offx2[5]=45
+offx2[6]=67
+offx2[7]=101
+
+offy1[0]=7+134
+offy1[1]=11+130
+offy1[2]=16+124
+offy1[3]=25+115
+offy1[4]=37+102
+offy1[5]=55+82
+offy1[6]=82+52
+offy1[7]=124+7
+
+offy2[0]=4+134
+offy2[1]=6+130
+offy2[2]=8+124
+offy2[3]=13+115
+offy2[4]=19+102
+offy2[5]=28+82
+offy2[6]=42+52
+offy2[7]=63+7
+
+drx1[0]=200
+drx1[1]=205
+drx1[2]=215
+drx1[3]=225
+drx1[4]=225
+drx1[5]=180
+drx1[6]=130
+
+drx2[0]=10+200
+drx2[1]=15+205
+drx2[2]=22+215
+drx2[3]=34+225
+drx2[4]=50+225
+drx2[5]=75+180
+drx2[6]=75+130
+
+dry1[0]=130-4
+dry1[1]=120-6
+dry1[2]=105-9
+dry1[3]=105-14
+dry1[4]=120-20
+dry1[5]=130-30
+dry1[6]=130-30
+
+dry2[0]=15+130
+dry2[1]=22+120
+dry2[2]=33+105
+dry2[3]=49+105
+dry2[4]=72+120
+dry2[5]=108+130
+dry2[6]=108+130
+
+
+score=0
+hrx=184
+hry=150
+runP=0
+fireflg=29
+intervalflg=0
+a=-1
+b=-1
+d=-1
+icount=0
+drhead=1
+tmpshow=0
+drdam=0
+fireOK=1
+if (navigator.appVersion.charAt(0) >= 4){timerID=setTimeout("interval1()",timerINT)}
+
+//if (navigator.appVersion.charAt(0) >= 4){intervalID=setInterval("interval1()",intervaltime)}
+}
+
+function bossinit(){
+
+  document.layers[chrname[0]].moveTo(200,130)
+  document.layers[chrname[1]].moveTo(205,120)
+  document.layers[chrname[2]].moveTo(215,105)
+  document.layers[chrname[3]].moveTo(225,105)
+  document.layers[chrname[4]].moveTo(225,120)
+  document.layers[chrname[5]].moveTo(180,130)
+  document.layers[chrname[6]].moveTo(0,0)
+  document.layers[chrname[7]].moveTo(0,0)
+
+  document.layers[chrname[10]].moveTo(195,130)
+  document.layers[chrname[11]].moveTo(185,125)
+  document.layers[chrname[12]].moveTo(170,120)
+  document.layers[chrname[13]].moveTo(140,115)
+  document.layers[chrname[14]].moveTo(115,110)
+  document.layers[chrname[15]].moveTo(130,130)
+  document.layers[chrname[16]].moveTo(0,0)
+  document.layers[chrname[17]].moveTo(0,0)
+
+  document.layers["MYCHR0"].layers[3].visibility="SHOW"
+  document.layers["MYCHR1"].layers[3].visibility="SHOW"
+  document.layers["MYCHR2"].layers[2].visibility="SHOW"
+
+  document.layers["MYCHX0"].layers[3].visibility="SHOW"
+  document.layers["MYCHX1"].layers[4].visibility="SHOW"
+
+}
+
+function boss(){
+ tmpbody=drhead
+
+ drh=drhead
+ if (drh >= 7){drh=99}
+ if (drhead == fireflg-30){
+   if (firex >= drx1[drh]){
+    if (firex <= drx2[drh]){
+     if (firey >= dry1[drh]){
+      if(firey <= dry2[drh]){
+       document.layers[chrname[fireflg]].visibility="HIDE"
+       fireflg=29
+       drdam=drdam+1
+       if (drdam >= 3){gameset()}
+      }
+     }
+    }
+   }
+ }
+
+if (drdam <=2){
+ drhead=drhead+1
+ tmptail=drhead-4
+ tmpnull=tmptail-1
+ if (tmptail <= -1){tmptail=tmptail+12}
+ tmpnull=tmptail-1
+ if (tmpnull <= -1){tmpnull=tmpnull+12}
+ if (drhead >= 12){drhead=0}
+ if (drhead >= 6){
+  tmpface=18
+  drheadx=21-drhead
+  document.layers[chrname[drheadx]].layers[2].visibility="SHOW"
+ }else{
+  tmpface=15
+  document.layers[chrname[drhead]].layers[2].visibility="SHOW"
+ }
+ 
+ if (tmpbody >= 6){
+  tmpbodyx=21-tmpbody
+  document.layers[chrname[tmpbodyx]].layers[2].visibility="HIDE"
+  document.layers[chrname[tmpbodyx]].layers[3].visibility="SHOW"
+ }else{
+  document.layers[chrname[tmpbody]].layers[2].visibility="HIDE"
+  document.layers[chrname[tmpbody]].layers[3].visibility="SHOW"
+ }
+
+ if (tmptail >= 6){
+  tmptailx=21-tmptail
+  document.layers[chrname[tmptailx]].layers[3].visibility="HIDE"
+  document.layers[chrname[tmptailx]].layers[4].visibility="SHOW"
+ }else{
+  document.layers[chrname[tmptail]].layers[3].visibility="HIDE"
+  document.layers[chrname[tmptail]].layers[4].visibility="SHOW"
+ }
+
+ if (tmpnull >= 6){
+  tmpnullx=21-tmpnull
+  document.layers[chrname[tmpnullx]].layers[4].visibility="HIDE"
+ }else{
+  document.layers[chrname[tmpnull]].layers[4].visibility="HIDE"
+ }
+
+ drh=drhead
+ if (drh >= 7){drh=99}
+ if (drhead == fireflg-30){
+   if (firex >= drx1[drh]){
+    if (firex <= drx2[drh]){
+     if (firey >= dry1[drh]){
+      if(firey <= dry2[drh]){
+       document.layers[chrname[fireflg]].visibility="HIDE"
+       fireflg=29
+       drdam=drdam+1
+       if (drdam >= 3){gameset()}
+      }
+     }
+    }
+   }
+ }
+
+ if (drhead == 2){
+  tmpfire4x=239+(hrx-239)*0.29
+  tmpfire4y=146+(hry-146)*0.29
+  tmpfire5x=239+(hrx-239)*0.44
+  tmpfire5y=146+(hry-146)*0.44
+  tmpfire6x=239+(hrx-239)*0.67
+  tmpfire6y=146+(hry-146)*0.67
+  tmpfire7x=239+(hrx-239)
+  tmpfire7y=146+(hry-146)
+  document.layers["MYCHY3"].moveTo(239,146)
+  document.layers["MYCHY3"].visibility="SHOW"
+ }
+
+ if (drhead == 3){
+  document.layers["MYCHY4"].moveTo(tmpfire4x,tmpfire4y)
+  document.layers["MYCHY3"].layers[2].visibility="HIDE"
+  document.layers["MYCHY4"].layers[2].visibility="SHOW"
+ }
+
+ if (drhead == 4){
+  document.layers["MYCHY5"].moveTo(tmpfire5x,tmpfire5y)
+  document.layers["MYCHY4"].layers[2].visibility="HIDE"
+  document.layers["MYCHY5"].layers[2].visibility="SHOW"
+ }
+
+ if (drhead == 5){
+  document.layers["MYCHY6"].moveTo(tmpfire6x,tmpfire6y)
+  document.layers["MYCHY5"].layers[2].visibility="HIDE"
+  document.layers["MYCHY6"].layers[2].visibility="SHOW"
+ }
+
+ if (drhead == 6){
+  document.layers["MYCHY7"].moveTo(tmpfire7x,tmpfire7y)
+  document.layers["MYCHY6"].layers[2].visibility="HIDE"
+  document.layers["MYCHY7"].layers[2].visibility="SHOW"
+  
+  if (hrx >= tmpfire7x-16){
+   if (hrx <= tmpfire7x+64){
+    if (hry >= tmpfire7y-32){
+     if(hry <= tmpfire7y+64){
+      tmpshow=-1
+      getready()
+     }
+    }
+   }
+  }
+
+ }
+
+ if (drhead == 7){
+  document.layers["MYCHY6"].layers[2].visibility="HIDE"
+  document.layers["MYCHY7"].layers[2].visibility="HIDE"
+ }
+}
+}
+
+
+function interval1(){
+  clearTimeout(timerID)
+  clearTimeout(timerID)
+  clearTimeout(timerID)
+  clearTimeout(timerID)
+  clearTimeout(timerID)
+  clearTimeout(timerID)
+  clearTimeout(timerID)
+  clearTimeout(timerID)
+  clearTimeout(timerID)
+  clearTimeout(timerID)
+ timerID = setTimeout("interval1()",timerINT)
+
+//SPACE key scan
+//   document.layers["ctrl"].document.Pcontrol.DUM.click()
+   tkey=document.layers["ctrl"].document.Pcontrol.tenkey.value
+  if (tkey == ""){
+   document.layers["ctrl"].document.Pcontrol.tenkey.focus()
+  }else{
+   document.layers["ctrl"].document.Pcontrol.tenkey.value=""
+   document.layers["ctrl"].document.Pcontrol.tenkey.focus()
+   if (tkey.indexOf(" ") >= 0){fire()}
+   document.layers["ctrl"].document.Pcontrol.tenkey.value=""
+  }
+
+
+
+if (icount == ilimit + 19){bossinit()}
+if (icount >= ilimit + 20){boss()}
+
+
+aq=a
+bq=b
+cq=d
+paq=a+ptna
+pbq=b+ptnb
+pcq=d+ptnc
+
+ if (a == -1){
+  with (Math) {shf = floor(random()*2)}
+  if (icount >= ilimit){shf=1}
+  if (shf == 0){
+   a=0
+    with (Math) {ptna = floor(random()*3)*10}
+  }
+ }else{
+  a=a+1
+  if (a >= 8){a=-1}
+ }
+
+ if (b == -1){
+  if (a != 0){
+   with (Math) {shf = floor(random()*2)}
+   if (icount >= ilimit){shf=1}
+   if (shf == 0){
+    b=0
+     with (Math) {ptnb = floor(random()*3)*10}
+   }
+  }
+ }else{
+  b=b+1
+  if (b >= 8){b=-1}
+ }
+
+ if (d == -1){
+  with (Math) {shf = floor(random()*2)}
+  if (a != 0){if (b != 0){
+   if (icount >= ilimit){shf=1}
+   if (shf == 0){
+    d=0
+     with (Math) {ptnc = floor(random()*3)*10}
+   }
+  }}
+ }else{
+  d=d+1
+  if (d >= 8){d=-1}
+ }
+
+l1=200-objoff1[b]
+l2=175-objoff1[a]*3
+l3=220+d*7
+
+ hrx=hrx+hrdx
+ hry=hry+hrdy
+if (hrx < 0){hrx=0}
+if (hry < 0){hry=0}
+if (hrx > 358){hrx=358}
+if (hry > 210){hry=210}
+
+runP=runP+1
+if (runP >= 7){runP=5}
+if (hry < 210){runP=4}
+
+if (aq >= 0){document.layers[chrname[paq]].layers[0].visibility="HIDE"}
+if (bq >= 0){document.layers[chrname[pbq]].layers[0].visibility="HIDE"}
+if (cq >= 0){document.layers[chrname[pcq]].layers[0].visibility="HIDE"}
+
+if (tmpI != 0){
+ document.layers[chrname[tmpL]].layers[1].visibility="HIDE"
+ tmpI=0
+}
+
+if (a >= 0){
+document.layers[chrname[a+ptna]].left=l2
+document.layers[chrname[a+ptna]].layers[0].visibility="SHOW"
+}
+
+if (b >= 0){
+document.layers[chrname[b+ptnb]].left=l1
+document.layers[chrname[b+ptnb]].layers[0].visibility="SHOW"
+}
+
+if (d >= 0){
+document.layers[chrname[d+ptnc]].left=l3
+document.layers[chrname[d+ptnc]].layers[0].visibility="SHOW"
+}
+
+if (fireflg >= 30){
+ document.layers[chrname[fireflg]].visibility="HIDE"
+ if (a == fireflg-30){chkfa()}
+ if (b == fireflg-30){chkfb()}
+ if (d == fireflg-30){chkfc()}
+ fireflg=fireflg-1
+ if (fireflg >= 30){
+  firex=firex+fireflg-30-(firex-195)/6
+  firey=firey-(firey-135)/3
+  if (a == fireflg-30){chkfa()}
+  if (b == fireflg-30){chkfb()}
+  if (d == fireflg-30){chkfc()}
+  if (fireflg >=30){
+   document.layers[chrname[fireflg]].moveTo(firex,firey)
+   document.layers[chrname[fireflg]].visibility="SHOW"
+  }
+ }
+}
+
+if (tmpshow == 0){
+document.layers["ctrl"].moveTo(hrx-416,hry-317)
+document.layers["harrier"].moveTo(hrx,hry)
+}
+
+c=c+1
+if (c >= 4){c=0}
+document.layers["BG"].top=150-c*500
+
+
+if (tmpshow == 0){
+ if (runP == 4){
+   document.layers["harrier"].layers["runP0"].visibility="SHOW"
+   document.layers["harrier"].layers["runP1"].visibility="HIDE"
+   document.layers["harrier"].layers["runP2"].visibility="HIDE"
+ }
+ if (runP == 5){
+   document.layers["harrier"].layers["runP0"].visibility="HIDE"
+   document.layers["harrier"].layers["runP1"].visibility="SHOW"
+   document.layers["harrier"].layers["runP2"].visibility="HIDE"
+ }
+ if (runP == 6){
+   document.layers["harrier"].layers["runP0"].visibility="HIDE"
+   document.layers["harrier"].layers["runP1"].visibility="HIDE"
+   document.layers["harrier"].layers["runP2"].visibility="SHOW"
+ }
+}else{tmpshow=0}
+
+  if (a == 7){chka()}
+  if (b == 7){chkb()}
+  if (d == 7){chkd()}
+
+
+parent.sub2.document.f_sub2.MES.value=score
+score=score+10
+icount=icount+1
+}
+
+
+
+
+//paturn write
+function SetIcon(flag, position){
+//document.images[position].src=icons[flag].src;
+}
+
+//-->
+</SCRIPT>
+</HEAD>
+
+
+<BODY BGCOLOR="#00EEEE" TEXT="#FF0000" LINK="#000000" VLINK="#000000" >
+<A NAME="dm"><LAYER NAME="dummy" LEFT="0" TOP="0" visibility="HIDE"></LAYER></A>
+<SCRIPT LANGUAGE="JavaScript">
+<!--
+if (navigator.appVersion.charAt(0) <= 3){document.write("Your Browser is not Netscape 4.0! <P> You can not play this game. <P>")}
+//-->
+</SCRIPT>
+
+<IMG WIDTH=10 HEIGHT=800 SRC="null.gif">
+
+
+<LAYER NAME="BG" LEFT="0" TOP="150" visibility="SHOW">
+<IMG WIDTH=400 HEIGHT=150 SRC="gnd0.gif"><BR>
+<IMG WIDTH=10 HEIGHT=350 SRC="null.gif"><BR>
+<IMG WIDTH=400 HEIGHT=150 SRC="gnd1.gif"><BR>
+<IMG WIDTH=10 HEIGHT=350 SRC="null.gif"><BR>
+<IMG WIDTH=400 HEIGHT=150 SRC="gnd2.gif"><BR>
+<IMG WIDTH=10 HEIGHT=350 SRC="null.gif"><BR>
+<IMG WIDTH=400 HEIGHT=150 SRC="gnd3.gif"><BR>
+</LAYER>
+
+
+<LAYER NAME="MYCHR0" LEFT="194" TOP="134" visibility="SHOW">
+<LAYER visibility="HIDE"><IMG WIDTH=16 HEIGHT=16 SRC="obj1.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=16 HEIGHT=16 SRC="bom1.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=16 HEIGHT=16 SRC="drg1.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=16 HEIGHT=16 SRC="drg2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=16 HEIGHT=16 SRC="drg3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=16 HEIGHT=16 SRC="bom43.gif"></LAYER>
+</LAYER>
+
+<LAYER NAME="MYCHX0" LEFT="194" TOP="134" visibility="SHOW">
+<LAYER visibility="HIDE"><IMG WIDTH=16 HEIGHT=16 SRC="obj2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=16 HEIGHT=16 SRC="bom2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=16 HEIGHT=16 SRC="drg4.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=16 HEIGHT=16 SRC="drg2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=16 HEIGHT=16 SRC="drg3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=16 HEIGHT=16 SRC="bom4.gif"></LAYER>
+</LAYER>
+
+<LAYER NAME="MYCHY0" LEFT="194" TOP="134" visibility="SHOW">
+<LAYER visibility="HIDE"><IMG WIDTH=16 HEIGHT=16 SRC="obj3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=16 HEIGHT=16 SRC="bom3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=16 HEIGHT=16 SRC="fire2.gif"></LAYER>
+</LAYER>
+
+<LAYER NAME="MYbul0" LEFT="0" TOP="0" visibility="HIDE">
+<IMG WIDTH=4 HEIGHT=4 SRC="fire1.gif">
+</LAYER>
+
+
+
+<LAYER NAME="MYCHR1" LEFT="190" TOP="130" visibility="SHOW">
+<LAYER visibility="HIDE"><IMG WIDTH=24 HEIGHT=24 SRC="obj1.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=24 HEIGHT=24 SRC="bom1.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=24 HEIGHT=24 SRC="drg1.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=24 HEIGHT=24 SRC="drg2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=24 HEIGHT=24 SRC="drg3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=24 HEIGHT=24 SRC="bom4.gif"></LAYER>
+</LAYER>
+
+<LAYER NAME="MYCHX1" LEFT="190" TOP="130" visibility="SHOW">
+<LAYER visibility="HIDE"><IMG WIDTH=24 HEIGHT=24 SRC="obj2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=24 HEIGHT=24 SRC="bom2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=24 HEIGHT=24 SRC="drg4.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=24 HEIGHT=24 SRC="drg2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=24 HEIGHT=24 SRC="drg3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=24 HEIGHT=24 SRC="bom4.gif"></LAYER>
+</LAYER>
+
+<LAYER NAME="MYCHY1" LEFT="190" TOP="130" visibility="SHOW">
+<LAYER visibility="HIDE"><IMG WIDTH=24 HEIGHT=24 SRC="obj3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=24 HEIGHT=24 SRC="bom3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=24 HEIGHT=24 SRC="fire2.gif"></LAYER>
+</LAYER>
+
+<LAYER NAME="MYbul1" LEFT="0" TOP="0" visibility="HIDE">
+<IMG WIDTH=6 HEIGHT=6 SRC="fire1.gif">
+</LAYER>
+
+
+
+
+<LAYER NAME="MYCHR2" LEFT="186" TOP="124" visibility="SHOW">
+<LAYER visibility="HIDE"><IMG WIDTH=36 HEIGHT=36 SRC="obj1.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=36 HEIGHT=36 SRC="bom1.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=36 HEIGHT=36 SRC="drg1.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=36 HEIGHT=36 SRC="drg2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=36 HEIGHT=36 SRC="drg3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=36 HEIGHT=36 SRC="bom4.gif"></LAYER>
+</LAYER>
+
+<LAYER NAME="MYCHX2" LEFT="186" TOP="124" visibility="SHOW">
+<LAYER visibility="HIDE"><IMG WIDTH=36 HEIGHT=36 SRC="obj2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=36 HEIGHT=36 SRC="bom2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=36 HEIGHT=36 SRC="drg4.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=36 HEIGHT=36 SRC="drg2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=36 HEIGHT=36 SRC="drg3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=36 HEIGHT=36 SRC="bom4.gif"></LAYER>
+</LAYER>
+
+<LAYER NAME="MYCHY2" LEFT="186" TOP="124" visibility="SHOW">
+<LAYER visibility="HIDE"><IMG WIDTH=36 HEIGHT=36 SRC="obj3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=36 HEIGHT=36 SRC="bom3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=36 HEIGHT=36 SRC="fire2.gif"></LAYER>
+</LAYER>
+
+<LAYER NAME="MYbul2" LEFT="0" TOP="0" visibility="HIDE">
+<IMG WIDTH=9 HEIGHT=9 SRC="fire1.gif">
+</LAYER>
+
+
+
+<LAYER NAME="MYCHR3" LEFT="180" TOP="115" visibility="SHOW">
+<LAYER visibility="HIDE"><IMG WIDTH=54 HEIGHT=54 SRC="obj1.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=54 HEIGHT=54 SRC="bom1.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=54 HEIGHT=54 SRC="drg1.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=54 HEIGHT=54 SRC="drg2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=54 HEIGHT=54 SRC="drg3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=54 HEIGHT=54 SRC="bom4.gif"></LAYER>
+</LAYER>
+
+<LAYER NAME="MYCHX3" LEFT="180" TOP="115" visibility="SHOW">
+<LAYER visibility="HIDE"><IMG WIDTH=54 HEIGHT=54 SRC="obj2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=54 HEIGHT=54 SRC="bom2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=54 HEIGHT=54 SRC="drg4.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=54 HEIGHT=54 SRC="drg2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=54 HEIGHT=54 SRC="drg3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=54 HEIGHT=54 SRC="bom4.gif"></LAYER>
+</LAYER>
+
+<LAYER NAME="MYCHY3" LEFT="180" TOP="115" visibility="SHOW">
+<LAYER visibility="HIDE"><IMG WIDTH=54 HEIGHT=54 SRC="obj3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=54 HEIGHT=54 SRC="bom3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=54 HEIGHT=54 SRC="fire2.gif"></LAYER>
+</LAYER>
+
+<LAYER NAME="MYbul3" LEFT="0" TOP="0" visibility="HIDE">
+<IMG WIDTH=14 HEIGHT=14 SRC="fire1.gif">
+</LAYER>
+
+
+
+<LAYER NAME="MYCHR4" LEFT="170" TOP="102" visibility="SHOW">
+<LAYER visibility="HIDE"><IMG WIDTH=80 HEIGHT=80 SRC="obj1.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=80 HEIGHT=80 SRC="bom1.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=80 HEIGHT=80 SRC="drg1.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=80 HEIGHT=80 SRC="drg2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=80 HEIGHT=80 SRC="drg3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=80 HEIGHT=80 SRC="bom4.gif"></LAYER>
+</LAYER>
+
+<LAYER NAME="MYCHX4" LEFT="170" TOP="102" visibility="SHOW">
+<LAYER visibility="HIDE"><IMG WIDTH=80 HEIGHT=80 SRC="obj2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=80 HEIGHT=80 SRC="bom2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=80 HEIGHT=80 SRC="drg4.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=80 HEIGHT=80 SRC="drg2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=80 HEIGHT=80 SRC="drg3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=80 HEIGHT=80 SRC="bom4.gif"></LAYER>
+</LAYER>
+
+<LAYER NAME="MYCHY4" LEFT="170" TOP="102" visibility="SHOW">
+<LAYER visibility="HIDE"><IMG WIDTH=80 HEIGHT=80 SRC="obj3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=80 HEIGHT=80 SRC="bom3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=80 HEIGHT=80 SRC="fire2.gif"></LAYER>
+</LAYER>
+
+<LAYER NAME="MYbul4" LEFT="0" TOP="0" visibility="HIDE">
+<IMG WIDTH=20 HEIGHT=20 SRC="fire1.gif">
+</LAYER>
+
+
+
+<LAYER NAME="MYCHR5" LEFT="156" TOP="82" visibility="SHOW">
+<LAYER visibility="HIDE"><IMG WIDTH=120 HEIGHT=120 SRC="obj1.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=120 HEIGHT=120 SRC="bom1.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=120 HEIGHT=120 SRC="drg1.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=120 HEIGHT=120 SRC="drg2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=120 HEIGHT=120 SRC="drg3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=120 HEIGHT=120 SRC="bom4.gif"></LAYER>
+</LAYER>
+
+<LAYER NAME="MYCHX5" LEFT="156" TOP="82" visibility="SHOW">
+<LAYER visibility="HIDE"><IMG WIDTH=120 HEIGHT=120 SRC="obj2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=120 HEIGHT=120 SRC="bom2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=120 HEIGHT=120 SRC="drg4.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=120 HEIGHT=120 SRC="drg2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=120 HEIGHT=120 SRC="drg3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=120 HEIGHT=120 SRC="bom4.gif"></LAYER>
+</LAYER>
+
+<LAYER NAME="MYCHY5" LEFT="156" TOP="82" visibility="SHOW">
+<LAYER visibility="HIDE"><IMG WIDTH=120 HEIGHT=120 SRC="obj3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=120 HEIGHT=120 SRC="bom3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=120 HEIGHT=120 SRC="fire2.gif"></LAYER>
+</LAYER>
+
+<LAYER NAME="MYbul5" LEFT="0" TOP="0" visibility="HIDE">
+<IMG WIDTH=30 HEIGHT=30 SRC="fire1.gif">
+</LAYER>
+
+
+
+<LAYER NAME="MYCHR6" LEFT="132" TOP="52" visibility="SHOW">
+<LAYER visibility="HIDE"><IMG WIDTH=180 HEIGHT=180 SRC="obj1.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=180 HEIGHT=180 SRC="bom1.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=180 HEIGHT=180 SRC="drg1.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=180 HEIGHT=180 SRC="drg2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=180 HEIGHT=180 SRC="drg3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=180 HEIGHT=180 SRC="bom4.gif"></LAYER>
+</LAYER>
+
+<LAYER NAME="MYCHX6" LEFT="132" TOP="52" visibility="SHOW">
+<LAYER visibility="HIDE"><IMG WIDTH=180 HEIGHT=180 SRC="obj2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=180 HEIGHT=180 SRC="bom2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=180 HEIGHT=180 SRC="drg4.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=180 HEIGHT=180 SRC="drg2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=180 HEIGHT=180 SRC="drg3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=180 HEIGHT=180 SRC="bom4.gif"></LAYER>
+</LAYER>
+
+<LAYER NAME="MYCHY6" LEFT="132" TOP="52" visibility="SHOW">
+<LAYER visibility="HIDE"><IMG WIDTH=180 HEIGHT=180 SRC="obj3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=180 HEIGHT=180 SRC="bom3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=180 HEIGHT=180 SRC="fire2.gif"></LAYER>
+</LAYER>
+
+<LAYER NAME="MYbul6" LEFT="0" TOP="0" visibility="HIDE">
+<IMG WIDTH=45 HEIGHT=45 SRC="fire1.gif">
+</LAYER>
+
+
+
+<LAYER NAME="MYCHR7" LEFT="99" TOP="7" visibility="SHOW">
+<LAYER visibility="HIDE"><IMG WIDTH=270 HEIGHT=270 SRC="obj1.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=270 HEIGHT=270 SRC="bom1.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=270 HEIGHT=270 SRC="drg1.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=270 HEIGHT=270 SRC="drg2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=270 HEIGHT=270 SRC="drg3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=270 HEIGHT=270 SRC="bom4.gif"></LAYER>
+</LAYER>
+
+<LAYER NAME="MYCHX7" LEFT="99" TOP="7" visibility="SHOW">
+<LAYER visibility="HIDE"><IMG WIDTH=270 HEIGHT=270 SRC="obj2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=270 HEIGHT=270 SRC="bom2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=270 HEIGHT=270 SRC="drg4.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=270 HEIGHT=270 SRC="drg2.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=270 HEIGHT=270 SRC="drg3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=270 HEIGHT=270 SRC="bom4.gif"></LAYER>
+</LAYER>
+
+<LAYER NAME="MYCHY7" LEFT="99" TOP="7" visibility="SHOW">
+<LAYER visibility="HIDE"><IMG WIDTH=270 HEIGHT=270 SRC="obj3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=270 HEIGHT=270 SRC="bom3.gif"></LAYER>
+<LAYER visibility="HIDE"><IMG WIDTH=270 HEIGHT=270 SRC="fire2.gif"></LAYER>
+</LAYER>
+
+<LAYER NAME="MYbul7" LEFT="0" TOP="0" visibility="HIDE">
+<IMG WIDTH=68 HEIGHT=68 SRC="fire1.gif">
+</LAYER>
+
+<LAYER NAME="harrier" LEFT="184" TOP="150" visibility="SHOW">
+  <LAYER NAME="runP0" visibility="SHOW">
+  <IMG WIDTH=32 HEIGHT=64 SRC="har0.gif">
+  </LAYER>
+  <LAYER NAME="runP1" visibility="HIDE">
+  <IMG WIDTH=32 HEIGHT=64 SRC="har1.gif">
+  </LAYER>
+  <LAYER NAME="runP2" visibility="HIDE">
+  <IMG WIDTH=32 HEIGHT=64 SRC="har2.gif">
+  </LAYER>
+  <LAYER NAME="runP3" visibility="HIDE">
+  <IMG WIDTH=32 HEIGHT=64 SRC="har3.gif">
+  </LAYER>
+</LAYER>
+
+
+<LAYER NAME="ctrl" LEFT="-232" TOP="-167" visibility="SHOW"><PRE><A HREF="#dm" onClick="fire()" onMouseOver="movUL()"><IMG WIDTH=400 HEIGHT=300 SRC="null.gif" BORDER="0"></A><A HREF="#dm" onClick="fire()" onMouseOver="movU()"><IMG WIDTH=64 HEIGHT=300 SRC="null.gif" BORDER="0"></A><A HREF="#dm" onClick="fire()" onMouseOver="movUR()"><IMG WIDTH=400 HEIGHT=300 SRC="null.gif" BORDER="0"></A><BR><A HREF="#dm" onClick="fire()" onMouseOver="movL()"><IMG WIDTH=400 HEIGHT=64 SRC="null.gif" BORDER="0"></A><A HREF="#dm" onClick="fire()" onMouseOver="movN()"><IMG WIDTH=64 HEIGHT=64 SRC="null.gif" BORDER="0"></A><A HREF="#dm" onClick="fire()" onMouseOver="movR()"><IMG WIDTH=400 HEIGHT=64 SRC="null.gif" BORDER="0"></A><BR><A HREF="#dm" onClick="fire()" onMouseOver="movDL()"><IMG WIDTH=400 HEIGHT=300 SRC="null.gif" BORDER="0"></A><A HREF="#dm" onClick="fire()" onMouseOver="movD()"><IMG WIDTH=64 HEIGHT=300 SRC="null.gif" BORDER="0"></A><A HREF="#dm" onClick="fire()" onMouseOver="movDR()"><IMG WIDTH=400 HEIGHT=300 SRC="null.gif" BORDER="0"></A><BR>
+</PRE>
+<FORM NAME="Pcontrol">
+<INPUT TYPE="text"NAME="tenkey" SIZE=1 VALUE = "" >
+<INPUT TYPE="button" NAME="DUM">
+</FORM>
+</LAYER>
+
+
+<LAYER NAME="btn" LEFT="0" TOP="250" visibility="SHOW">
+<FORM NAME="btn1">
+<CENTER>
+<INPUT TYPE="button" NAME="start" VALUE="   START   " ONCLICK="onld()"><BR><IMG WIDTH=1 HEIGHT=500 SRC="null.gif"><BR><INPUT TYPE="button" NAME="btn2" VALUE=" Get Ready! " ONCLICK="cont()"><BR><IMG WIDTH=1 HEIGHT=500 SRC="null.gif"><BR><INPUT TYPE="button" NAME="btn3" VALUE=" ALL CLEAR! " ONCLICK="restart()"><BR>
+</CENTER>
+</FORM>
+</LAYER>
+
+
+</BODY>
+</HTML>
