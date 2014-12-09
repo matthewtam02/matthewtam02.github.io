@@ -26,7 +26,7 @@ bkcore.hexgl.ShipControls = function(ctx)
 	this.airDrift = 0.1;
 	this.thrust = 0.02;
 	this.airBrake = 0.02;
-	this.maxSpeed = 100.0;
+	this.maxSpeed = 7.0;
 	this.boosterSpeed = this.maxSpeed * 0.2;
 	this.boosterDecay = 0.01;
 	this.angularSpeed = 0.005;
@@ -252,13 +252,13 @@ bkcore.hexgl.ShipControls = function(ctx)
 	{
 		switch(event.keyCode)
 		{
-			case 119: /*up*/	self.key.forward = true; break;
+			case 38: /*up*/	self.key.forward = true; break;
 
-			case 115: /*down*/self.key.backward = true; break;
+			case 40: /*down*/self.key.backward = true; break;
 
-			case 97: /*left*/self.key.left = true; break;
+			case 37: /*left*/self.key.left = true; break;
 
-			case 100: /*right*/self.key.right = true; break;
+			case 39: /*right*/self.key.right = true; break;
 
 			case 81: /*Q*/self.key.ltrigger = true; break;
 			case 65: /*A*/self.key.ltrigger = true; break;
