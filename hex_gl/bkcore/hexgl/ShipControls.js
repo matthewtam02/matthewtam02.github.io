@@ -252,7 +252,7 @@ bkcore.hexgl.ShipControls = function(ctx)
 	{
 		switch(event.keyCode)
 		{
-			case 87: /*up*/	self.key.forward = true; break;
+			case 119: /*up*/	self.key.forward = true; break;
 
 			case 115: /*down*/self.key.backward = true; break;
 
