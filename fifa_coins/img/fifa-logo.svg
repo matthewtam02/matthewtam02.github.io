@@ -1,0 +1,51 @@
+<xml version="1.0" encoding="UTF-8" standalone="no">
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg
+xmlns:dc="http://purl.org/dc/elements/1.1/"
+xmlns:cc="http://creativecommons.org/ns#"
+xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+xmlns:svg="http://www.w3.org/2000/svg"
+xmlns="http://www.w3.org/2000/svg"
+version="1.1"
+width="512"
+height="256"
+id="svg2">
+<defs
+id="defs4" />
+<metadata
+id="metadata7">
+<rdf:RDF>
+<cc:Work
+rdf:about="">
+<dc:format>image/svg+xml</dc:format>
+<dc:type
+rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+<dc:title></dc:title>
+</cc:Work>
+</rdf:RDF>
+</metadata>
+<defs>
+<style type="text/css"><![CDATA[
+path{
+	fill: #FAAC58;
+	-webkit-transition: fill 1s ease;
+	-moz-transition: fill 1s ease;
+	-ms-transition: fill 1s ease;
+	-o-transition: fill 1s ease;
+	transition: fill 1s ease;
+}
+
+svg:hover path{
+	fill: #FE9A2E;
+}
+]]></style>
+</defs>
+<g
+transform="translate(0,-796.365)"
+id="layer1">
+<path
+d="m 149.488,843.039 0,162.451 53.109,0 0,-162.451 z m 85.912,0 0,81.225 0,81.226 51.547,0 0,-58.918 38.515,0.537 9.713,-36.903 -48.228,0 0,-29.678 54.135,0 19.28,-37.489 z m 156.448,0 c -18.871,54.121 -58.04,161.821 -58.04,161.821 l 46.712,0.63 10.157,-23.724 51.839,1.318 9.273,21.626 52.231,0.83 c 0,0 -38.967,-108.278 -58.185,-162.501 z m -383.86849,0.195 0,81.226 0,81.23 51.54709,0 0,-58.923 38.5618,0.537 9.7146,-36.903 -48.2764,0 0,-29.678 54.1824,0 19.233,-37.489 z m 409.25149,52.767 19.964,56.38 -42.37,-0.195 z"
+id="path3007"
+style="fill-opacity:1" />
+</g>
+</svg>
