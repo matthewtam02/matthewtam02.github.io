@@ -1,8 +1,0 @@
-D:\Telerik\GitHub\BattleField\BattleField 5\bin\Debug\BattleField.exe.config
-D:\Telerik\GitHub\BattleField\BattleField 5\bin\Debug\BattleField.exe
-D:\Telerik\GitHub\BattleField\BattleField 5\bin\Debug\BattleField.pdb
-D:\Telerik\GitHub\BattleField\BattleField 5\obj\x86\Debug\BattleField.csprojResolveAssemblyReference.cache
-D:\Telerik\GitHub\BattleField\BattleField 5\obj\x86\Debug\BattleField.GameMessage.resources
-D:\Telerik\GitHub\BattleField\BattleField 5\obj\x86\Debug\BattleField.csproj.GenerateResource.Cache
-D:\Telerik\GitHub\BattleField\BattleField 5\obj\x86\Debug\BattleField.exe
-D:\Telerik\GitHub\BattleField\BattleField 5\obj\x86\Debug\BattleField.pdb
