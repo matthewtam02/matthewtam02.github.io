@@ -1,0 +1,83 @@
+$side: 200px
+$num: 10
+$dur: 10s
+
+@mixin plane($w, $h)
+  width: $w
+  height: $h
+  transform-style: preserve-3d
+  
+@mixin view($p)
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  perspective: $p
+
+@mixin center
+  position: absolute
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+  margin: auto      
+
+html, body
+  background: #222
+  overflow: hidden
+  width: 100%
+  height: 100%
+  
+.view
+  @include view(0)
+    
+.plane
+  @include plane($side, $side)
+  
+  &.main
+    @include center
+    transform: rotateX(60deg) rotateZ(-30deg)
+    animation: view 20s infinite linear
+    
+    .plane
+      position: absolute
+      animation: move $dur infinite linear reverse
+      
+      .circle
+        animation: scale ($dur / 2) infinite cubic-bezier(0, 1, 1, 1) alternate
+      
+      @for $i from 1 through $num
+        &:nth-child(#{$i})
+          $del: -$dur * $i / $num
+          animation-delay: $del
+          
+          .circle
+            animation-delay: $del
+      
+.circle
+  background: rgba(0, 150, 194, 0.4)
+  border-radius: 100%
+  position: absolute
+  width: 100%
+  height: 100%
+  box-sizing: border-box
+  box-shadow: inset 0 0 ($side / 5) rgb(0, 255, 255), 0 0 ($side / 10) rgba(0, 255, 255, 0.3)
+  
+@keyframes move
+  0%
+    transform: translateZ(-$side / 2)
+  100%
+    transform: translateZ($side / 2)
+  
+@keyframes scale
+  0%
+    transform: scale(0, 0)
+  100%
+    transform: scale(1, 1)
+  
+@keyframes view
+  0%
+    transform: rotateZ(0deg) rotateX(45deg)
+  100%
+    transform: rotateZ(360deg) rotateX(45deg)
