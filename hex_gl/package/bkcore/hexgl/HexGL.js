@@ -1,7 +1,7 @@
  /*
  * HexGL
  * @author Thibaut 'BKcore' Despoulain <http://bkcore.com>
- * @license This work is licensed under the Creative Commons Attribution-NonCommercial 3.0 Unported License.
+ * @license This work is licensed under the Creative Commons Attribution-NonCommercial 3.0 Unported License. 
  *          To view a copy of this license, visit http://creativecommons.org/licenses/by-nc/3.0/.
  */
 
@@ -19,30 +19,25 @@ bkcore.hexgl.HexGL = function(opts)
 
 	this.a = window.location.href;
 
+	this.mobile = opts.mobile == undefined ? false : opts.mobile;
 	this.active = true;
 	this.displayHUD = opts.hud == undefined ? true : opts.hud;
 	this.width = opts.width == undefined ? window.innerWidth : opts.width;
 	this.height = opts.height == undefined ? window.innerHeight : opts.height;
-	
+
+	this.quality = opts.quality == undefined ? 2 : opts.quality;
 	this.difficulty = opts.difficulty == undefined ? 0 : opts.difficulty;
 	this.player = opts.player == undefined ? "Anonym" : opts.player;
+
+	this.half = opts.half == undefined ? false : opts.half;
 
 	this.track = bkcore.hexgl.tracks[ opts.track == undefined ? 'Cityscape' : opts.track ];
 
 	this.mode = opts.mode == undefined ? 'timeattack' : opts.mode;
 
 	this.controlType = opts.controlType == undefined ? 1 : opts.controlType;
-	
-	// 0 == low, 1 == mid, 2 == high, 3 == very high
-	// the old platform+quality combinations map to these new quality values
-	// as follows:
-	// mobile + low quality => 0 (LOW)
-	// mobile + mid quality OR desktop + low quality => 1 (MID)
-	// mobile + high quality => 2 (HIGH)
-	// desktop + mid or high quality => 3 (VERY HIGH)
-	this.quality = opts.quality == undefined ? 3 : opts.quality;
 
-	if(this.quality === 0)
+	if(this.half)
 	{
 		this.width /= 2;
 		this.height /=2;
@@ -78,9 +73,9 @@ bkcore.hexgl.HexGL = function(opts)
 
 	this.initRenderer();
 
-	function onKeyPress(event)
+	function onKeyPress(event) 
 	{
-		if(event.keyCode == 27/*escape*/)
+		if(event.keyCode == 27/*escape*/) 
 		{
 			self.reset();
 		}
@@ -134,17 +129,17 @@ bkcore.hexgl.HexGL.prototype.update = function()
 bkcore.hexgl.HexGL.prototype.init = function()
 {
 	this.initHUD();
-	
-	this.track.buildMaterials(this.quality);
 
-	this.track.buildScenes(this, this.quality);
+	this.track.buildMaterials(this.quality, this.mobile);
+
+	this.track.buildScenes(this, this.quality, this.mobile);
 
 	this.initGameComposer();
 }
 
 bkcore.hexgl.HexGL.prototype.load = function(opts)
 {
-	this.track.load(opts, this.quality);
+	this.track.load(opts, this.quality, this.mobile);
 }
 
 bkcore.hexgl.HexGL.prototype.initGameplay = function()
@@ -160,7 +155,6 @@ bkcore.hexgl.HexGL.prototype.initGameplay = function()
 		pixelRatio: this.track.pixelRatio,
 		track: this.track,
 		onFinish: function() {
-			self.components.shipControls.terminate();
 			self.displayScore(this.finishTime, this.lapTimes);
 		}
 	});
@@ -179,12 +173,12 @@ bkcore.hexgl.HexGL.prototype.displayScore = function(f, l)
 		bkcore.Timer.msToTimeString(l[2])
 	];
 
-	if(this.gameover !== null)
+	if(this.mobile)
 	{
 		this.gameover.style.display = "block";
-		this.gameover.children[0].innerHTML = tf.m + "'" + tf.s + "''" + tf.ms;
-		this.containers.main.parentElement.style.display = "none";
-		return;
+		this.gameover.innerHTML = tf.m + "'" + tf.s + "''" + tf.ms;
+		this.containers.main.style.display = "none";
+		return; 
 	}
 
 	var t = this.track;
@@ -243,9 +237,9 @@ bkcore.hexgl.HexGL.prototype.displayScore = function(f, l)
 	}
 	else
 	{
-		ds != undefined && (ds.innerHTML = "Destroyed! You really suck!");
+		ds != undefined && (ds.innerHTML = "Destroyed!");
 		dr != undefined && (dr.innerHTML = "Maybe next time!");
-		dh != undefined && (dh.innerHTML = "Welcome To The Hall Of Fame");
+		dh != undefined && (dh.innerHTML = "Hall Of Fame");
 		dt != undefined && (dt.innerHTML = "None");
 		dl1 != undefined && (dl1.innerHTML = "None");
 		dl2 != undefined && (dl2.innerHTML = "None");
@@ -277,8 +271,8 @@ bkcore.hexgl.HexGL.prototype.initRenderer = function()
 		clearColor: 0x000000
 	});
 
-	// desktop + quality mid or high
-	if(this.quality > 2)
+
+	if(this.quality > 0 && !this.mobile)
 	{
 		renderer.physicallyBasedShading = true;
 		renderer.gammaInput = true;
@@ -292,7 +286,7 @@ bkcore.hexgl.HexGL.prototype.initRenderer = function()
 	renderer.setSize( this.width, this.height );
 	renderer.domElement.style.position = "relative";
 
-	this.containers.main.appendChild( renderer.domElement );
+	this.containers.main.appendChild( renderer.domElement );	
 	this.canvas = renderer.domElement;
 	this.renderer = renderer;
 	this.manager = new bkcore.threejs.RenderManager(renderer);
@@ -308,7 +302,7 @@ bkcore.hexgl.HexGL.prototype.initHUD = function()
 		bg: this.track.lib.get("images", "hud.bg"),
 		speed: this.track.lib.get("images", "hud.speed"),
 		shield: this.track.lib.get("images", "hud.shield")
-	});
+	});	
 	this.containers.overlay.appendChild(this.hud.canvas);
 }
 
@@ -317,7 +311,7 @@ bkcore.hexgl.HexGL.prototype.initGameComposer = function()
 	var renderTargetParameters = { minFilter: THREE.LinearFilter, magFilter: THREE.LinearFilter, format: THREE.RGBFormat, stencilBuffer: false };
 	var renderTarget = new THREE.WebGLRenderTarget( this.width, this.height, renderTargetParameters );
 
-	// GAME COMPOSER
+	// GAME COMPOSER	
 	var renderSky = new THREE.RenderPass( this.manager.get("sky").scene, this.manager.get("sky").camera );
 
 	var renderModel = new THREE.RenderPass( this.manager.get("game").scene, this.manager.get("game").camera );
@@ -325,8 +319,8 @@ bkcore.hexgl.HexGL.prototype.initGameComposer = function()
 
 	this.composers.game = new THREE.EffectComposer( this.renderer, renderTarget );
 
-	var effectScreen = new THREE.ShaderPass( THREE.ShaderExtras[ "screen" ] );
-	effectScreen.renderToScreen = true;
+	var effectScreen = new THREE.ShaderPass( THREE.ShaderExtras[ "screen" ] );	
+	effectScreen.renderToScreen = true;			
 	var effectVignette = new THREE.ShaderPass( THREE.ShaderExtras[ "vignette" ] );
 
 	var effectHex = new THREE.ShaderPass( bkcore.threejs.Shaders[ "hexvignette" ] );
@@ -341,20 +335,17 @@ bkcore.hexgl.HexGL.prototype.initGameComposer = function()
 	this.composers.game.addPass( renderSky );
 	this.composers.game.addPass( renderModel );
 
-	// if(this.quality > 0 && !this.mobile)
-	// {
-	// 	var effectFXAA = new THREE.ShaderPass( THREE.ShaderExtras[ "fxaa" ] );
-	// 	effectFXAA.uniforms[ 'resolution' ].value.set( 1 / this.width, 1 / this.height );
-
-	// 	this.composers.game.addPass( effectFXAA );
-
-	// 	this.extras.fxaa = effectFXAA;
-	
-	// }
-	
-	// desktop + quality mid or high
-	if(this.quality > 2)
+	if(this.quality > 0 && !this.mobile)
 	{
+		var effectFXAA = new THREE.ShaderPass( THREE.ShaderExtras[ "fxaa" ] );
+		effectFXAA.uniforms[ 'resolution' ].value.set( 1 / this.width, 1 / this.height );
+
+		this.composers.game.addPass( effectFXAA );
+		
+		this.extras.fxaa = effectFXAA;
+	}
+	if(this.quality > 1 && !this.mobile)
+	{	
 		var effectBloom = new THREE.BloomPass( 0.8, 25, 4 , 256);
 
 		this.composers.game.addPass( effectBloom );
@@ -362,16 +353,15 @@ bkcore.hexgl.HexGL.prototype.initGameComposer = function()
 		this.extras.bloom = effectBloom;
 	}
 
-	// desktop + quality low, mid or high
-	// OR
-	// mobile + quality mid or high
-	if(this.quality > 0)
+	if(!this.mobile || this.quality > 0)
 		this.composers.game.addPass( effectHex );
 	else
 		this.composers.game.addPass( effectScreen );
+
+	
 }
 
-bkcore.hexgl.HexGL.prototype.createMesh = function(parent, geometry, x, y, z, mat)
+bkcore.hexgl.HexGL.prototype.createMesh = function(parent, geometry, x, y, z, mat) 
 {
 	geometry.computeTangents();
 
@@ -379,8 +369,7 @@ bkcore.hexgl.HexGL.prototype.createMesh = function(parent, geometry, x, y, z, ma
 	mesh.position.set( x, y, z );
 	parent.add(mesh);
 
-	// desktop + quality mid or high
-	if(this.quality > 2)
+	if(this.quality > 0 && !this.mobile)
 	{
 		mesh.castShadow = true;
 		mesh.receiveShadow = true;
